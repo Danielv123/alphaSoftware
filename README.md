@@ -7,3 +7,4 @@ Repository of software and libraries for the Mitsubishi Alpha 2 PLC platform.
 ## Projects
 
 - [alphaSnake](alphaSnake/alphaSnake.md)
+- [alphaTetris](alphaTetris/README.md)
