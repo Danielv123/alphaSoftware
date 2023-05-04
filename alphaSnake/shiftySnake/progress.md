@@ -3,7 +3,7 @@
 - [x] Segment storage
 - [x] Controls
 - [x] Display output
-- [ ] Renderer
+- [x] Renderer
 - [ ] Edge handling
 - [ ] Food/snake length
 - [ ] Collision handling/game over

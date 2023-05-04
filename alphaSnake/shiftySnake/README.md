@@ -40,11 +40,68 @@ The difficult part of this is the bitwise OR. Alpha does not have an operator fo
 1. Loop through bits dividing by 2 each time, comparing the remainder and adding the (result of the comparison)^(loop counter) to the result
 2. Use static calculator blocks to extract each bit and add them together
 
+### Code
+
+We operate on 1 set of X,Y coordinates at a time. Using that we need to selectively update a single display memory cell.
+
+Before loop:
+
+1. Clear the memory cells to 0
+  - 1 compare block, 1 counter, 1 not, 8x OR = 11 blocks
+
+Loop:
+
+1. Amount to add = 10 ^ (X % 5)
+  - Exponents aren't possible, so we handle this by using a lookup table with 5 comparators, counters, NOT blocks and calculators = 20 blocks + 2 to combine them
+2. Figure out X cell to write to: IF X < 5 THEN X cell = 1 ELSE X cell = 2
+  - 1 AND per cell, 1 compare = 9 blocks
+3. Figure out Y cell to write to: 4 compare blocks feeding into the same AND as step 2
+  - 4 compare blocks = 4 blocks
+4. Send write for a single cycle, feeding into same AND as step 2
+  - 1 pulse block, 1 compare block = 2 blocks
+5. Loop to draw next pixel
+
+Renderer budget:
+
+| Function                | Amount | Used |
+| ----------------------- | ------ | ---- |
+| Clear memory cells      | 11     | 11   |
+| Calculate amount to add | 22     | 21   |
+| Calculate X cell        | 9      | 10   |
+| Calculate Y cell        | 4      | 4    |
+| Send write              | 2      | 1    |
+| Video memory            | 8      | 8    |
+| Display buffer          | 8      | 9    |
+| Display blocks          | 8      | 8    |
+| Total                   | 72     | 72   |
+
+### Video memory cells
+
+Because the wiring is making it quite difficult to read the program, I have decided to document the wiring here.
+
+The video memory is divided in 2 banks of 4 cells. Each cell stores 5 pixels.
+
+![Video memory wiring](./images/video%20memory%20cell.png)
+
+Each cell consists of 3 blocks - AND, OR and a calculator.
+
+- First input on the AND block is the bank select signal
+- Second input on the AND block is the Y coordinate select signal
+- Third input on the AND block is the write signal configured as `shift clock` falling trigger
+
+The OR block is used to combine the cell level write with a block level write used to clear the entire memory before rendering (connected to input 2 on the OR block)
+
+The calculator is used to store the current value of the cell. The output loops back to input A. The formula is `Y = (A+B)*C`, where:
+
+- A is the current value of the cell
+- B is the write value from the `10^X` section
+- C is set to 0 to clear the cell
+
 ### Display output
 
 We output 1 row at a time as a binary number. This is done by looping through the bits in the memory cell and dividing by 2, outputting the remainder each time and saving it in an SR block.
 
-### Framerate calculation
+## Performance
 
 For an 8x8 display we need the following loops:
 
