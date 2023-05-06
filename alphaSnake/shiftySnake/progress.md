@@ -4,6 +4,6 @@
 - [x] Controls
 - [x] Display output
 - [x] Renderer
-- [ ] Edge handling
-- [ ] Food/snake length
-- [ ] Collision handling/game over
+- [x] Edge handling
+- [x] Food/snake length
+- [x] Collision handling/game over
