@@ -157,14 +157,10 @@ Sets the speed of rendering the pixels. By default I have set it to 10/10ms to g
 
 Currently the program is at the 200 block limit, but there are a few things I'd still like to improve:
 
-1. Random food position - should be distributed better, could be done with an extra calculator or two
-2. Game over/instruction screen. Can probably be done with a display block or two hooked up to existing functionality
+1. [ ] Random food position - should be distributed better, could be done with an extra calculator or two
+2. [x] Game over/instruction screen. Can probably be done with a display block or two hooked up to existing functionality
 
 To implement anything else we need to save a few blocks somewhere.
-
-- 1 block can be saved by removing the `write memory shuffle` dot using straight wires
-
-![Write memory shuffle](./images/write_memory_shuffle.png)
 
 The counters used to select values from calculators can in theory be done without a NOT block, but that makes the analog output only stay high for a single cycle. This is done by setting the `number of counts` to `1` and dragging the binary output to the CL pin. This can save:
 
