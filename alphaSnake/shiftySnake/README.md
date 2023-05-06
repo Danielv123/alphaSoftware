@@ -163,6 +163,8 @@ Currently the program is at the 200 block limit, but there are a few things I'd 
 
 To implement anything else we need to save a few blocks somewhere.
 
+- The `move clock` uses a `pulse` block, but the pulse we generate from the flicker might already be short enough. This can save 1 block
+
 The counters used to select values from calculators can in theory be done without a NOT block, but that makes the analog output only stay high for a single cycle. This is done by setting the `number of counts` to `1` and dragging the binary output to the CL pin. This can save:
 
 - 8 blocks in the array buffer
