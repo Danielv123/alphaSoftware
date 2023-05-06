@@ -157,8 +157,9 @@ Sets the speed of rendering the pixels. By default I have set it to 10/10ms to g
 
 Currently the program is at the 200 block limit, but there are a few things I'd still like to improve:
 
-1. [ ] Random food position - should be distributed better, could be done with an extra calculator or two
-2. [x] Game over/instruction screen. Can probably be done with a display block or two hooked up to existing functionality
+- [ ] Snake tail - it is currently possible to crash into invisible tail segments. This can be fixed by changing parameter 2 on the IsBody check in the top right from `7` to `calc( 8 - length )` but that requires an extra block
+- [ ] Random food position - should be distributed better, could be done with an extra calculator or two
+- [x] Game over/instruction screen. Can probably be done with a display block or two hooked up to existing functionality
 
 To implement anything else we need to save a few blocks somewhere.
 
