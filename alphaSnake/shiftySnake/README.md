@@ -38,7 +38,11 @@ In addition, I hardcode the position of the head and food externally to the arra
 
 Food X position = `( length % 8 * 2 ) * render_select`
 
+More random pos = `((length + 1) % 5 + ((length % 7) * 2) + (length / 3) *  2) % 10` - `Y=(((A+B)%(B+C+C)+((A%(C+C+C+B))*C)+(A/(B+C))*C)%(C*C*C+C))*D`
+
 Food Y position = `( length % 2 + 1 ) * render_select`
+
+More random pos = `(( length + 1 ) % 2 + (( length % 2 ) * 2 ) + ( length / 3 ) * 2 ) % 4` - `Y=(((A+C)%B+((A%B)*B)+(A/(B+C))*B)%(B+B))*D`
 
 This gives a satisfactory "random" position for the food while only using 2 blocks, but is fairly limited in distribution and ends up making each food piece close to the last. This is probably the primary area for improvement.
 
@@ -157,8 +161,9 @@ Sets the speed of rendering the pixels. By default I have set it to 10/10ms to g
 
 Currently the program is at the 200 block limit, but there are a few things I'd still like to improve:
 
+- [ ] Collisions - It might just be me being bad at the game in the simulator, but I seem to die a lot in the top left corner. A possible fix is to not generate food there - change `% 4` in the end of the Y food position calculator to `% 3 + 1`
 - [ ] Snake tail - it is currently possible to crash into invisible tail segments. This can be fixed by changing parameter 2 on the IsBody check in the top right from `7` to `calc( 8 - length )` but that requires an extra block
-- [ ] Random food position - should be distributed better, could be done with an extra calculator or two
+- [x] Random food position - should be distributed better, could be done with an extra calculator or two
 - [x] Game over/instruction screen. Can probably be done with a display block or two hooked up to existing functionality
 
 To implement anything else we need to save a few blocks somewhere.
