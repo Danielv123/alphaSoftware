@@ -165,6 +165,7 @@ Currently the program is at the 200 block limit, but there are a few things I'd 
 - [ ] Snake tail - it is currently possible to crash into invisible tail segments. This can be fixed by changing parameter 2 on the IsBody check in the top right from `7` to `calc( 8 - length )` but that requires an extra block
 - [x] Random food position - should be distributed better, could be done with an extra calculator or two
 - [x] Game over/instruction screen. Can probably be done with a display block or two hooked up to existing functionality
+- [ ] Calculator comparison: The formula 1/(1+(A−B)*(A−B)) can be used to compare 2 numbers and output 0 or 1 as an analog signal. This is a frequently used pattern that currently uses a CMP, NOT and countupdown block = 3 blocks.
 
 To implement anything else we need to save a few blocks somewhere.
 
